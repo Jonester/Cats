@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  MasterCollectionViewController.h
 //  Cats
 //
 //  Created by Chris Jones on 2017-01-30.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface MasterCollectionViewController : UICollectionViewController
 
 @end
-
