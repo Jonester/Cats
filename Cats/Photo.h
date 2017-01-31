@@ -6,25 +6,14 @@
 //  Copyright © 2017 Jonescr. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface Photo : NSObject
 
-@property (strong, nonatomic) NSNumber *farm;
-@property (strong, nonatomic) NSString *photoID;
-@property (strong, nonatomic) NSString *serverID;
-@property (strong, nonatomic) NSString *secretID;
-@property (strong, nonatomic) NSString *urlString;
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSURL *url;
+@property (strong, nonatomic) UIImage *image;
 
-
-//- (instancetype)initWithTitle:(NSString *)title andDownloadImageUrl:(NSURL *)downloadUrl;
-
-- (instancetype)initWithFarm: (NSNumber *)farm
-                     photoID: (NSString *)photoID
-                    serverID: (NSString *)serverID
-                     secretID: (NSString *)secretID
-                       title: (NSString *)title;
+- (instancetype)initWithTitle:(NSString *)title downloadImageUrl:(NSURL *)downloadUrl image: (UIImage *)image;
 
 @end

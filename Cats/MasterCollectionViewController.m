@@ -37,8 +37,8 @@
         }
         NSError *jsonError = nil;
         NSDictionary *firstPhotosDict = [NSJSONSerialization JSONObjectWithData:data
-                                                               options:0
-                                                                 error:&jsonError];
+                                                                        options:0
+                                                                          error:&jsonError];
         
         if (jsonError) {
             NSLog(@"json Error: %@", jsonError.localizedDescription);
@@ -47,14 +47,15 @@
         
         NSDictionary *secondPhotosDict = [firstPhotosDict valueForKey:@"photos"];
         NSArray *allPhotos = [secondPhotosDict valueForKey:@"photo"];
-            
-        for (NSDictionary *photoElements in allPhotos) {
-            self.photo = [[Photo alloc]initWithFarm:[photoElements valueForKey:@"farm"]
-                                            photoID:[photoElements valueForKey:@"id"]
-                                           serverID:[photoElements valueForKey:@"server"]
-                                           secretID:[photoElements valueForKey:@"secret"]
-                                              title:[photoElements valueForKey:@"title"]];
         
+        for (NSDictionary *photoElements in allPhotos) {
+            
+            NSString *urlString = [NSString stringWithFormat:@"https://farm%ld.staticflickr.com/%@/%@_%@.jpg", [[photoElements valueForKey:@"farm"] integerValue], [photoElements valueForKey:@"server"], [photoElements valueForKey:@"id"], [photoElements valueForKey:@"secret"]];
+            
+            self.photo = [[Photo alloc]initWithTitle:[photoElements valueForKey:@"title"]
+                                    downloadImageUrl:[NSURL URLWithString:urlString]
+                                               image:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:urlString]]]];
+            
             [self.photosArray addObject:self.photo];
         }
         
@@ -90,7 +91,7 @@
     PhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     Photo *photoObject = self.photosArray[indexPath.row];
     [cell setPhoto:photoObject];
-        
+    
     return cell;
 }
 

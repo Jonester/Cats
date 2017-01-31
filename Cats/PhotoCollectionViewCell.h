@@ -10,9 +10,9 @@
 @class Photo;
 
 @interface PhotoCollectionViewCell : UICollectionViewCell
+
 @property (weak, nonatomic) IBOutlet UILabel *cellLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *cellImage;
-
 @property (strong, nonatomic) Photo *photo;
 
 @end

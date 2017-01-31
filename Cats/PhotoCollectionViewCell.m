@@ -12,7 +12,7 @@
 @implementation PhotoCollectionViewCell
 
 -(void)setPhoto:(Photo *)photo {
-    self.cellImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:photo.url]];
+    self.cellImage.image = photo.image;
     self.cellLabel.text = photo.title;
 }
 
