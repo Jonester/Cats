@@ -10,10 +10,11 @@
 
 @implementation Photo
 
-- (instancetype)initURLWith: (NSString*)farm
-                    photoID: (NSString *)photoID
-                   serverID: (NSString *)serverID
-                    secreID: (NSString *)secretID
+- (instancetype)initWithFarm: (NSNumber *)farm
+                     photoID: (NSString *)photoID
+                    serverID: (NSString *)serverID
+                     secretID: (NSString *)secretID
+                       title: (NSString *)title
 {
     self = [super init];
     if (self) {
@@ -21,10 +22,13 @@
         _photoID = photoID;
         _serverID = serverID;
         _secretID = secretID;
-        _fullString = [NSString stringWithFormat:@"https://farm%@.staticflickr.com/%@/%@_%@.jpg", _farm, _serverID, _photoID, _secretID];
-        _address = [NSURL URLWithString:_fullString];
+        _title = title;
+        _urlString = [NSString stringWithFormat:@"https://farm%ld.staticflickr.com/%@/%@_%@.jpg", [_farm integerValue], _serverID, _photoID, _secretID];
+        _url = [NSURL URLWithString:_urlString];
     }
     return self;
 }
 
 @end
+
+//https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg

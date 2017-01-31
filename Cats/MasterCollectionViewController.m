@@ -7,25 +7,64 @@
 //
 
 #import "MasterCollectionViewController.h"
+#import "PhotoCollectionViewCell.h"
+#import "Photo.h"
 
 @interface MasterCollectionViewController ()
+
+@property (strong, nonatomic) NSMutableArray *photosArray;
+@property (strong, nonatomic) Photo *photo;
 
 @end
 
 @implementation MasterCollectionViewController
 
-static NSString * const reuseIdentifier = @"Cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = NO;
+    self.photosArray = [NSMutableArray new];
     
-    // Register cell classes
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+    NSURL *url = [NSURL URLWithString:@"https://api.flickr.com/services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1&api_key=d03d341e56d31ac876ad9eec528309d4&tags=cat"];
+    NSURLRequest *request = [[NSURLRequest alloc]initWithURL:url];
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
     
-    // Do any additional setup after loading the view.
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error) {
+            NSLog(@"error: %@",error.localizedDescription);
+            return;
+        }
+        NSError *jsonError = nil;
+        NSDictionary *firstPhotosDict = [NSJSONSerialization JSONObjectWithData:data
+                                                               options:0
+                                                                 error:&jsonError];
+        
+        if (jsonError) {
+            NSLog(@"json Error: %@", jsonError.localizedDescription);
+            return;
+        }
+        
+        NSDictionary *secondPhotosDict = [firstPhotosDict valueForKey:@"photos"];
+        NSArray *allPhotos = [secondPhotosDict valueForKey:@"photo"];
+            
+        for (NSDictionary *photoElements in allPhotos) {
+            self.photo = [[Photo alloc]initWithFarm:[photoElements valueForKey:@"farm"]
+                                            photoID:[photoElements valueForKey:@"id"]
+                                           serverID:[photoElements valueForKey:@"server"]
+                                           secretID:[photoElements valueForKey:@"secret"]
+                                              title:[photoElements valueForKey:@"title"]];
+        
+            [self.photosArray addObject:self.photo];
+        }
+        
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            
+            [self.collectionView reloadData]; // try with and without
+            
+        }];
+    }];
+    [dataTask resume];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,64 +72,27 @@ static NSString * const reuseIdentifier = @"Cell";
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-
-    return 0;
+    
+    return 1;
 }
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-
-    return 0;
+    
+    return self.photosArray.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    
-    // Configure the cell
-    
+    PhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    Photo *photoObject = self.photosArray[indexPath.row];
+    [cell setPhoto:photoObject];
+        
     return cell;
 }
 
-/*
-// Uncomment this method to specify if the specified item should be highlighted during tracking
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
-}
-*/
-
-/*
-// Uncomment this method to specify if the specified item should be selected
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-*/
-
-/*
-// Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-	return NO;
-}
-
-- (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	return NO;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	
-}
-*/
 
 @end

@@ -10,11 +10,21 @@
 
 @interface Photo : NSObject
 
-@property (strong, nonatomic) NSString *farm;
+@property (strong, nonatomic) NSNumber *farm;
 @property (strong, nonatomic) NSString *photoID;
 @property (strong, nonatomic) NSString *serverID;
 @property (strong, nonatomic) NSString *secretID;
-@property (strong, nonatomic) NSString *fullString;
-@property (strong, nonatomic) NSURL *address;
+@property (strong, nonatomic) NSString *urlString;
+@property (strong, nonatomic) NSString *title;
+@property (strong, nonatomic) NSURL *url;
+
+
+//- (instancetype)initWithTitle:(NSString *)title andDownloadImageUrl:(NSURL *)downloadUrl;
+
+- (instancetype)initWithFarm: (NSNumber *)farm
+                     photoID: (NSString *)photoID
+                    serverID: (NSString *)serverID
+                     secretID: (NSString *)secretID
+                       title: (NSString *)title;
 
 @end

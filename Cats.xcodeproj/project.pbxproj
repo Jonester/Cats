@@ -14,6 +14,7 @@
 		3CB633861E3FD99600F84193 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CB633841E3FD99600F84193 /* LaunchScreen.storyboard */; };
 		3CB6338F1E3FDB2E00F84193 /* MasterCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CB6338E1E3FDB2E00F84193 /* MasterCollectionViewController.m */; };
 		3CB633921E3FDB8300F84193 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CB633911E3FDB8300F84193 /* Photo.m */; };
+		3CB633951E3FE43D00F84193 /* PhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CB633941E3FE43D00F84193 /* PhotoCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,8 @@
 		3CB6338E1E3FDB2E00F84193 /* MasterCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterCollectionViewController.m; sourceTree = "<group>"; };
 		3CB633901E3FDB8300F84193 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
 		3CB633911E3FDB8300F84193 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
+		3CB633931E3FE43D00F84193 /* PhotoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoCollectionViewCell.h; sourceTree = "<group>"; };
+		3CB633941E3FE43D00F84193 /* PhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoCollectionViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +67,8 @@
 				3CB6337F1E3FD99600F84193 /* Main.storyboard */,
 				3CB6338D1E3FDB2E00F84193 /* MasterCollectionViewController.h */,
 				3CB6338E1E3FDB2E00F84193 /* MasterCollectionViewController.m */,
+				3CB633931E3FE43D00F84193 /* PhotoCollectionViewCell.h */,
+				3CB633941E3FE43D00F84193 /* PhotoCollectionViewCell.m */,
 				3CB633901E3FDB8300F84193 /* Photo.h */,
 				3CB633911E3FDB8300F84193 /* Photo.m */,
 				3CB633761E3FD99600F84193 /* Supporting Files */,
@@ -158,6 +163,7 @@
 				3CB633921E3FDB8300F84193 /* Photo.m in Sources */,
 				3CB6337B1E3FD99600F84193 /* AppDelegate.m in Sources */,
 				3CB6338F1E3FDB2E00F84193 /* MasterCollectionViewController.m in Sources */,
+				3CB633951E3FE43D00F84193 /* PhotoCollectionViewCell.m in Sources */,
 				3CB633781E3FD99600F84193 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
